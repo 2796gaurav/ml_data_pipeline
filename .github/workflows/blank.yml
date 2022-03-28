@@ -45,6 +45,8 @@ jobs:
         uses: machine-learning-apps/actions-chatops@1.41
         with:
           TRIGGER_PHRASE: "/test-trigger-comment"
+        env: # you must supply GITHUB_TOKEN
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: print variables
         if: steps.prcomm.outputs.BOOL_TRIGGERED == 'true'
