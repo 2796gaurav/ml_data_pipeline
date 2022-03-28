@@ -40,3 +40,17 @@ jobs:
   
       - name: check python 3
         run: python3 --version
+        
+      - name: ChatOps For Pull Requests
+        uses: machine-learning-apps/actions-chatops@1.41
+        with:
+          TRIGGER_PHRASE: "/test-trigger-comment"
+          
+      - name: print variables
+        if: steps.prcomm.outputs.BOOL_TRIGGERED == 'true'
+        run: echo "${USERNAME} made a triggering comment on PR# ${PR_NUMBER} for ${BRANCH_NAME}"
+        env: 
+          BRANCH_NAME: ${{ steps.prcomm.outputs.BRANCH_NAME }}
+          PR_NUMBER: ${{ steps.prcomm.outputs.PULL_REQUEST_NUMBER }}
+          USERNAME: ${{ steps.prcomm.outputs.COMMENTER_USERNAME }}
+
